@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="chatData" type="com.yxm.po.SysChat">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="chatContent" jdbcType="VARCHAR" column="chatContent"/>
+        <result property="sendDate" jdbcType="TIMESTAMP" column="sendDate"/>
+        <result property="chatWay" jdbcType="TINYINT" column="chatWay"/>
+        <result property="sendId" jdbcType="INTEGER" column="sendId"/>
+        <result property="receptionId" jdbcType="INTEGER" column="receptionId"/>
+        <result property="relationId" jdbcType="INTEGER" column="relationId"/>
+    </resultMap>
+    <resultMap id="FriendChatData" type="com.yxm.vo.FriendAndFriendChat">
+        <result property="chatContent" jdbcType="VARCHAR" column="chatContent"/>
+        <result property="portrait" jdbcType="VARCHAR" column="portrait"/>
+        <result property="portraitFrame" jdbcType="VARCHAR" column="portraitFrame"/>
+        <result property="nickName" jdbcType="VARCHAR" column="nickName"/>
+        <result property="sendDate" jdbcType="TIMESTAMP" column="sendDate"/>
+        <result property="chatWay" jdbcType="TINYINT" column="chatWay"/>
+        <result property="sendId" jdbcType="INTEGER" column="sendId"/>
+        <result property="relationId" jdbcType="INTEGER" column="relationId"/>
+    </resultMap>
+    <insert id="insertChatByFriend" parameterType="com.yxm.po.SysChat">
+        INSERT INTO sys_chat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatContent!=null">chatContent,</if>
+            <if test="sendDate==null">sendDate,</if>
+            <if test="chatWay!=null">chatWay,</if>
+            <if test="sendId!=null">sendId,</if>
+            <if test="receptionId!=null">receptionId,</if>
+            <if test="relationId!=null">relationId,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="chatContent!=null">#{chatContent},</if>
+            <if test="sendDate==null">NOW(),</if>
+            <if test="chatWay!=null">#{chatWay},</if>
+            <if test="sendId!=null">#{sendId},</if>
+            <if test="receptionId!=null">#{receptionId},</if>
+            <if test="relationId!=null">#{relationId},</if>
+        </trim>
+    </insert>
+    <select id="selectFriendChatById" parameterType="java.lang.Integer" resultMap="FriendChatData">
+        SELECT sys_chat.*,sys_individuality.portrait,sys_individuality.portraitFrame,sys_user.nickName
+        FROM sys_chat INNER JOIN sys_individuality ON sys_chat.sendId = sys_individuality.userId INNER JOIN sys_user ON sys_chat.sendId = sys_user.id
+        WHERE sys_chat.relationId = #{relationId}
+        ORDER BY sys_chat.sendDate DESC
+        LIMIT #{page},15
+    </select>
+    <delete id="deleteFriendChat">
+        DELETE FROM sys_chat WHERE sys_chat.relationId = #{majorKeyId}
+    </delete>
+</mapper>

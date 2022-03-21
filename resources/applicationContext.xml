@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/aop
+   http://www.springframework.org/schema/aop/spring-aop.xsd
+   http://www.springframework.org/schema/tx
+   http://www.springframework.org/schema/tx/spring-tx.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置service层和dao层映射-->
+    <context:component-scan base-package="com.yxm.dao">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+    <context:component-scan base-package="com.yxm.service">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+    <!--引用外部数据源的映射-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--获取到数据库的账号密码,url,和数据库驱动-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
+    </bean>
+    <!--加载mybatis的实现接口-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--数据源,来自上面定义好的数据库-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--加载mybatis的设置,需要映射进来-->
+        <property name="configLocation" value="classpath:mybatis-conf.xml"/>
+        <!--加载映射文件,也就是写SQL代码的地方-->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+    </bean>
+    <!--mybatis配置扫描器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--加载mybatis的实现接口-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--扫描dao类-->
+        <property name="basePackage" value="com.yxm.dao"/>
+    </bean>
+    <!--加载SQL事务-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置事务通知属性以切面的方式进行-->
+    <!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+    <!--        <tx:attributes>-->
+    <!--            &lt;!&ndash;propagation：事务传播属性 指定当前方法必需在事务环境中运行，如果当前有事务环境就加入当前正在执行的事务环境，如果当前没有事务，就新建一个事务。这是默认值。&ndash;&gt;-->
+    <!--            <tx:method name="insert*" propagation="REQUIRED"/>-->
+    <!--            <tx:method name="update*" propagation="REQUIRED"/>-->
+    <!--            <tx:method name="delete*" propagation="REQUIRED"/>-->
+    <!--            <tx:method name="authorize*" propagation="REQUIRED"/>&lt;!&ndash;授权方法&ndash;&gt;-->
+    <!--            <tx:method name="select*" propagation="REQUIRED" read-only="true"/>-->
+    <!--            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>-->
+    <!--            <tx:method name="search*" propagation="REQUIRED" read-only="true"/>-->
+    <!--            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>-->
+    <!--            <tx:method name="load*" propagation="REQUIRED" read-only="true"/>-->
+    <!--            <tx:method name="*" propagation="REQUIRED" read-only="true"/>-->
+    <!--        </tx:attributes>-->
+    <!--    </tx:advice>-->
+    <!--    -->
+    <!--    <aop:config>-->
+    <!--        <aop:pointcut id="myPointcut" expression="(execution(* com.yxm.service..*Impl.*(..)))"/>-->
+    <!--        <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>-->
+    <!--    </aop:config>-->
+    <!--注解方式的事务,可以在方法或者类添加注解@Transactional,添加后表示该类或者该方法使用事务,执行顺序是根据你在当前页面编写的顺序有关,
+        也可以利用order进行对注解方式还是切面方式调整顺序,order值越小越好-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

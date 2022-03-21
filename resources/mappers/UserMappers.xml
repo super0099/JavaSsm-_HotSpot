@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="userData" type="com.yxm.po.SysUserVo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="userName" jdbcType="VARCHAR" column="userName"/>
+        <result property="userPassword" jdbcType="VARCHAR" column="userPassword"/>
+        <result property="userIdNumber" jdbcType="VARCHAR" column="userIdNumber"/>
+        <result property="userPhone" jdbcType="VARCHAR" column="userPhone"/>
+        <result property="state" jdbcType="TINYINT" column="state"/>
+        <result property="salt" jdbcType="VARCHAR" column="salt"/>
+        <result property="gender" jdbcType="TINYINT" column="gender"/>
+        <result property="loginCount" jdbcType="INTEGER" column="loginCount"/>
+        <result property="userCreate" jdbcType="TIMESTAMP" column="userCreate"/>
+        <result property="childPage" jdbcType="VARCHAR" column="childPage"/>
+        <result property="nickName" jdbcType="VARCHAR" column="nickName"/>
+    </resultMap>
+    <select id="selectUserById" resultMap="userData">
+        SELECT sys_user.* FROM sys_user WHERE id = #{userId}
+    </select>
+    <update id="updateUserPageState" parameterType="com.yxm.po.SysUserVo">
+        UPDATE sys_user
+        <set>
+            <if test="childPage!=null">childPage=#{childPage}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateUserPage" parameterType="com.yxm.po.SysUserVo">
+        UPDATE sys_user SET childPage=' ' WHERE id = #{id}
+    </update>
+</mapper>

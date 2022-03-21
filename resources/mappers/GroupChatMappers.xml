@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="groupChatData" type="com.yxm.vo.GroupChatLoadVo">
+        <id column="groupId" jdbcType="INTEGER" property="groupId"/>
+        <result property="groupName" jdbcType="VARCHAR" column="groupName"/>
+        <result property="chatContent" jdbcType="VARCHAR" column="chatContent"/>
+        <result property="sendDate" jdbcType="TIMESTAMP" column="sendDate"/>
+        <result property="chatWay" jdbcType="TINYINT" column="chatWay"/>
+        <result property="sendId" jdbcType="INTEGER" column="sendId"/>
+        <result property="messageCount" jdbcType="INTEGER" column="messageCount"/>
+    </resultMap>
+    <resultMap id="GroupChatData" type="com.yxm.vo.FriendAndFriendChat">
+        <result property="chatContent" jdbcType="VARCHAR" column="chatContent"/>
+        <result property="portrait" jdbcType="VARCHAR" column="portrait"/>
+        <result property="portraitFrame" jdbcType="VARCHAR" column="portraitFrame"/>
+        <result property="nickName" jdbcType="VARCHAR" column="nickName"/>
+        <result property="sendDate" jdbcType="TIMESTAMP" column="sendDate"/>
+        <result property="chatWay" jdbcType="TINYINT" column="chatWay"/>
+        <result property="sendId" jdbcType="INTEGER" column="sendId"/>
+        <result property="relationId" jdbcType="INTEGER" column="relationId"/>
+        <result property="groupId" jdbcType="INTEGER" column="groupId"/>
+    </resultMap>
+    <select id="groupChatLoad" resultMap="groupChatData">
+        SELECT sys_group.groupName,sys_group.id AS groupId
+        FROM sys_group INNER JOIN sys_groupchat ON sys_group.id = sys_groupchat.groupId INNER JOIN sys_groupmember ON sys_group.id =sys_groupmember.groupId
+        WHERE sys_groupmember.userId = #{userId}
+        GROUP BY groupId
+        ORDER BY sys_groupchat.sendDate DESC
+    </select>
+    <select id="selectGroupChatLast" resultMap="groupChatData">
+        SELECT sys_groupchat.chatContent,sys_groupchat.chatWay,sys_groupchat.sendDate FROM sys_groupchat WHERE groupId = #{groupId}
+        ORDER BY sendDate DESC
+        LIMIT 1
+    </select>
+    <select id="selectGroupChatById" parameterType="java.lang.Integer" resultMap="FriendChatData">
+        SELECT sys_groupchat.*,sys_individuality.portrait,sys_individuality.portraitFrame,sys_user.nickName
+        FROM sys_groupchat INNER JOIN sys_individuality ON sys_groupchat.sendId = sys_individuality.userId INNER JOIN sys_user ON sys_groupchat.sendId = sys_user.id
+        WHERE sys_groupchat.groupId = #{relationId}
+        ORDER BY sys_groupchat.sendDate DESC
+        LIMIT #{page},15
+    </select>
+    <insert id="insertGroupChat" parameterType="com.yxm.po.SysGroupChat">
+        INSERT INTO sys_groupchat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId!=null">groupId,</if>
+            <if test="chatContent!=null">chatContent,</if>
+            <if test="chatWay!=null">chatWay,</if>
+            <if test="sendId!=null">sendId,</if>
+            <if test="sendDate==null">sendDate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId!=null">#{groupId},</if>
+            <if test="chatContent!=null">#{chatContent},</if>
+            <if test="chatWay!=null">#{chatWay},</if>
+            <if test="sendId!=null">#{sendId},</if>
+            <if test="sendDate==null">NOW(),</if>
+        </trim>
+    </insert>
+</mapper>

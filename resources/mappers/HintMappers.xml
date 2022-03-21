@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="HintData" type="com.yxm.po.SysHint">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="userId" jdbcType="INTEGER" column="userId"/>
+        <result property="hintType" jdbcType="TINYINT" column="hintType"/>
+        <result property="initiativeId" jdbcType="INTEGER" column="initiativeId"/>
+        <result property="messageCount" jdbcType="INTEGER" column="messageCount"/>
+    </resultMap>
+    <select id="selectFriendHint" resultMap="HintData">
+        SELECT sys_hint.* FROM sys_hint WHERE sys_hint.userId = #{userId} AND sys_hint.hintType=1
+    </select>
+    <select id="newFriendHint" resultMap="HintData">
+        SELECT sys_hint.* FROM sys_hint WHERE sys_hint.userId = #{userId} AND sys_hint.hintType=3
+    </select>
+    <select id="selectGroupHint" resultMap="HintData">
+        SELECT sys_hint.messageCount FROM sys_hint WHERE userId = #{userId} AND hintType = #{hintType} AND initiativeId = #{groupId}
+    </select>
+    <select id="selectHintFriendChatObj" resultMap="HintData">
+        SELECT sys_hint.* FROM sys_hint WHERE userId = #{userId} AND hintType = #{hintType} AND initiativeId = #{initiativeId}
+    </select>
+    <insert id="AddFriendHint" parameterType="com.yxm.po.SysHint">
+        INSERT INTO sys_hint
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">userId,</if>
+            <if test="hintType!=null">hintType,</if>
+            <if test="initiativeId!=null">initiativeId,</if>
+            <if test="messageCount!=null">messageCount,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">#{userId},</if>
+            <if test="hintType!=null">#{hintType},</if>
+            <if test="initiativeId!=null">#{initiativeId},</if>
+            <if test="messageCount!=null">#{messageCount},</if>
+        </trim>
+    </insert>
+    <update id="updateAddFriendHint" parameterType="com.yxm.po.SysHint">
+        UPDATE sys_hint
+        <set>
+            <if test="messageCount!=null">messageCount=#{messageCount}</if>
+        </set>
+        WHERE userId=#{userId,jdbcType=INTEGER} and hintType=#{hintType}
+    </update>
+    <update id="updateFriendHint" parameterType="com.yxm.po.SysHint">
+        UPDATE sys_hint
+        <set>
+            <if test="messageCount!=null">messageCount=#{messageCount}</if>
+        </set>
+        WHERE userId=#{userId,jdbcType=INTEGER} and hintType=#{hintType,jdbcType=TINYINT} and initiativeId = #{initiativeId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="groupData" type="com.yxm.po.SysGroup">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="groupName" jdbcType="VARCHAR" column="groupName"/>
+        <result property="masterId" jdbcType="INTEGER" column="masterId"/>
+        <result property="groupNumber" jdbcType="VARCHAR" column="groupNumber"/>
+    </resultMap>
+    <resultMap id="groupMemberData" type="com.yxm.po.SysGroupMember">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="userId" jdbcType="INTEGER" column="userId"/>
+        <result property="userName" jdbcType="VARCHAR" column="userName"/>
+        <result property="groupId" jdbcType="INTEGER" column="groupId"/>
+    </resultMap>
+<!--    <resultMap id="groupChatData" type="com.yxm.po.SysGroupChat">-->
+<!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
+<!--        <result property="groupId" jdbcType="INTEGER" column="groupId"/>-->
+<!--        <result property="chatContent" jdbcType="VARCHAR" column="chatContent"/>-->
+<!--        <result property="chatWay" jdbcType="TINYINT" column="chatWay"/>-->
+<!--        <result property="sendId" jdbcType="INTEGER" column="sendId"/>-->
+<!--        <result property="sendDate" jdbcType="TIMESTAMP" column="sendDate"/>-->
+<!--    </resultMap>-->
+    <select id="selectGroupByGroupNumber" resultMap="groupData">
+        SELECT sys_group.* FROM sys_group WHERE groupNumber = #{groupNumber}
+    </select>
+    <select id="selectGroupById" resultMap="groupData">
+        SELECT sys_group.* FROM sys_group WHERE id = #{groupId}
+    </select>
+    <select id="selectGroupMemberCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM sys_groupmember WHERE groupId = #{groupId}
+    </select>
+    <insert id="establishGroup" parameterType="com.yxm.po.SysGroup" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupName!=null">groupName,</if>
+            <if test="masterId!=null">masterId,</if>
+            <if test="groupNumber!=null">groupNumber,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupName!=null">#{groupName},</if>
+            <if test="masterId!=null">#{masterId},</if>
+            <if test="groupNumber!=null">#{groupNumber},</if>
+        </trim>
+    </insert>
+    <insert id="addGroupChat" parameterType="com.yxm.po.SysGroupChat">
+        INSERT INTO sys_groupchat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId!=null">groupId,</if>
+            <if test="chatContent!=null">chatContent,</if>
+            <if test="chatWay!=null">chatWay,</if>
+            <if test="sendId!=null">sendId,</if>
+            <if test="sendDate==null">sendDate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId!=null">#{groupId},</if>
+            <if test="chatContent!=null">#{chatContent},</if>
+            <if test="chatWay!=null">#{chatWay},</if>
+            <if test="sendId!=null">#{sendId},</if>
+            <if test="sendDate==null">NOW(),</if>
+        </trim>
+    </insert>
+    <insert id="addGroupMember" parameterType="com.yxm.po.SysGroupMember">
+        INSERT INTO sys_groupmember
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">userId,</if>
+            <if test="userName!=null">userName,</if>
+            <if test="groupId!=null">groupId,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">#{userId},</if>
+            <if test="userName!=null">#{userName},</if>
+            <if test="groupId!=null">#{groupId},</if>
+        </trim>
+    </insert>
+</mapper>

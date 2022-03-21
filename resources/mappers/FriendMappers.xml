@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="FriendData" type="com.yxm.po.SysFriend">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="aFriend" jdbcType="INTEGER" column="aFriend"/>
+        <result property="bFriend" jdbcType="INTEGER" column="bFriend"/>
+        <result property="state" jdbcType="TINYINT" column="state"/>
+    </resultMap>
+
+    <select id="selectFriendRelation" resultMap="FriendData">
+        select sys_friend.* from sys_friend where aFriend = #{userId} and bFriend = #{friendId}
+    </select>
+    <select id="selectFriendData" resultMap="FriendData">
+        SELECT sys_friend.* FROM sys_friend WHERE aFriend = #{userId} AND bFriend = #{friendId}
+        UNION ALL
+        SELECT sys_friend.* FROM sys_friend WHERE aFriend = #{friendId} AND bFriend = #{userId}
+    </select>
+
+    <select id="selectBusinessCard" resultMap="FriendData">
+        SELECT sys_friend.* FROM sys_friend
+        WHERE aFriend = #{userId} AND bFriend = #{majorKeyId}
+        UNION ALL
+        SELECT sys_friend.* FROM sys_friend
+        WHERE bFriend = #{userId} AND aFriend = #{majorKeyId}
+    </select>
+
+    <insert id="AddFriend" parameterType="java.lang.Integer">
+        INSERT INTO sys_friend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aFriend!=null">aFriend,</if>
+            <if test="bFriend!=null">bFriend,</if>
+            <if test="state!=null">state,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aFriend!=null">#{aFriend},</if>
+            <if test="bFriend!=null">#{bFriend},</if>
+            <if test="state!=null">#{state},</if>
+        </trim>
+    </insert>
+    <update id="updateFriend">
+        UPDATE sys_friend SET state = 3 where id = #{id}
+    </update>
+    <update id="updateConsentFriend" parameterType="com.yxm.po.SysFriend">
+        UPDATE sys_friend SET state = #{state} WHERE aFriend=#{aFriend} AND bFriend=#{bFriend}
+    </update>
+    <delete id="deleteFriend">
+        DELETE FROM sys_friend WHERE sys_friend.id = #{majorKeyId}
+    </delete>
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="IndividualityData" type="com.yxm.po.SysIndividuality">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="userId" jdbcType="INTEGER" column="userId"/>
+        <result property="portrait" jdbcType="VARCHAR" column="portrait"/>
+        <result property="portraitFrame" jdbcType="VARCHAR" column="portraitFrame"/>
+        <result property="epitaph" jdbcType="VARCHAR" column="epitaph"/>
+        <result property="chatBubble" jdbcType="VARCHAR" column="chatBubble"/>
+        <result property="background" jdbcType="VARCHAR" column="background"/>
+        <result property="mood" jdbcType="VARCHAR" column="mood"/>
+    </resultMap>
+    <resultMap id="UserIndividuality" type="com.yxm.vo.UserIndividualityVo" extends="IndividualityData">
+        <result property="nickName" jdbcType="VARCHAR" column="nickName"/>
+        <result property="userName" jdbcType="VARCHAR" column="userName"/>
+        <result property="chatContent" jdbcType="VARCHAR" column="chatContent"/>
+        <result property="sendDate" jdbcType="TIMESTAMP" column="sendDate"/>
+        <result property="chatWay" jdbcType="TINYINT" column="chatWay"/>
+        <result property="friendId" jdbcType="INTEGER" column="friendId"/>
+        <result property="sendId" jdbcType="INTEGER" column="sendId"/>
+        <result property="receptionId" jdbcType="INTEGER" column="receptionId"/>
+        <result property="relationId" jdbcType="INTEGER" column="relationId"/>
+    </resultMap>
+    <resultMap id="FriendRelation" type="com.yxm.vo.FriendRelation" extends="IndividualityData">
+        <result property="nickName" jdbcType="VARCHAR" column="nickName"/>
+        <result property="userName" jdbcType="VARCHAR" column="userName"/>
+        <result property="state" jdbcType="TINYINT" column="state"/>
+    </resultMap>
+    <select id="selectUserIndividuality" resultMap="IndividualityData">
+        SELECT sys_individuality.* FROM sys_individuality WHERE sys_individuality.userId = #{userId}
+    </select>
+    <select id="selectUserChatAndFriend" resultMap="UserIndividuality">
+        SELECT a.*,a.sendId AS friendId,sys_user.nickName,sys_user.userName,sys_individuality.* FROM sys_chat  AS a INNER JOIN sys_user ON sys_user.id = a.sendId INNER JOIN sys_individuality ON sys_individuality.userId = sys_user.id
+        WHERE sendDate = (SELECT MAX(sendDate) FROM sys_chat WHERE a.relationId = relationId) AND a.receptionId = #{userId}
+        UNION ALL
+        SELECT a.*,a.receptionId AS friendId,sys_user.nickName,sys_user.userName,sys_individuality.* FROM sys_chat AS a INNER JOIN sys_user ON sys_user.id = a.receptionId INNER JOIN sys_individuality ON sys_individuality.userId = sys_user.id
+        WHERE sendDate = (SELECT MAX(sendDate) FROM sys_chat WHERE a.relationId = relationId) AND a.sendId = #{userId}
+    </select>
+
+    <select id="selectChat" resultMap="UserIndividuality">
+        SELECT chatContent,chatWay,sendDate FROM sys_chat WHERE relationId = #{relationId} ORDER BY sendDate DESC LIMIT 1
+    </select>
+    <select id="selectFriendLoad" resultMap="FriendRelation">
+        SELECT sys_user.nickName,sys_user.userName,sys_individuality.*
+        FROM sys_friend INNER JOIN sys_user ON sys_user.id = bFriend INNER JOIN sys_individuality ON sys_individuality.userId = bFriend
+        WHERE aFriend = #{userId} AND sys_friend.state = 1
+        UNION ALL
+        SELECT sys_user.nickName,sys_user.userName,sys_individuality.*
+        FROM sys_friend INNER JOIN sys_user ON sys_user.id = aFriend INNER JOIN sys_individuality ON sys_individuality.userId = aFriend
+        WHERE bFriend = #{userId} AND sys_friend.state = 1
+    </select>
+    <select id="selectFriend" resultMap="FriendRelation">
+        SELECT sys_user.nickName,sys_user.userName,sys_individuality.* FROM sys_user INNER JOIN sys_individuality ON sys_user.id = sys_individuality.userId WHERE sys_user.userName = #{friendNumber}
+    </select>
+    <select id="selectFriendIsOk" resultMap="FriendRelation">
+        SELECT sys_user.nickName,sys_user.userName,sys_individuality.*,sys_friend.state
+        FROM sys_friend INNER JOIN sys_user ON sys_user.id = bFriend INNER JOIN sys_individuality ON sys_individuality.userId = bFriend
+        WHERE aFriend = #{userId} AND bFriend = #{friendId}
+        UNION ALL
+        SELECT sys_user.nickName,sys_user.userName,sys_individuality.*,sys_friend.state
+        FROM sys_friend INNER JOIN sys_user ON sys_user.id = aFriend INNER JOIN sys_individuality ON sys_individuality.userId = aFriend
+        WHERE bFriend = #{userId} AND aFriend = #{friendId}
+    </select>
+    <select id="selectFriendHintFalse" resultMap="FriendRelation">
+        SELECT sys_user.nickName,sys_user.userName,sys_individuality.*
+        FROM sys_friend INNER JOIN sys_user ON sys_user.id = aFriend INNER JOIN sys_individuality ON sys_individuality.userId = sys_user.id
+        WHERE bFriend = #{userId} AND sys_friend.state=3
+    </select>
+</mapper>

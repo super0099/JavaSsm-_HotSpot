@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.LoginDao">
+    <resultMap id="userData" type="com.yxm.po.SysUserVo">
+        <!--id  userName  userPassword  userPhone  userIdNumber   state  salt    gender  loginCount  userCreate-->
+        <id property="id" jdbcType="INTEGER" column="id"/>
+        <result property="userName" jdbcType="VARCHAR" column="userName"/>
+        <result property="userPassword" jdbcType="VARCHAR" column="userPassword"/>
+        <result property="userPhone" jdbcType="VARCHAR" column="userPhone"/>
+        <result property="userIdNumber" jdbcType="VARCHAR" column="userIdNumber"/>
+        <result property="state" jdbcType="TINYINT" column="state"/>
+        <result property="salt" jdbcType="VARCHAR" column="salt"/>
+        <result property="gender" jdbcType="TINYINT" column="gender"/>
+        <result property="loginCount" jdbcType="INTEGER" column="loginCount"/>
+        <result property="userCreate" jdbcType="TIMESTAMP" column="userCreate"/>
+
+        <result property="childPage" jdbcType="VARCHAR" column="childPage"/>
+        <result property="nickName" jdbcType="VARCHAR" column="nickName"/>
+    </resultMap>
+    <resultMap id="IndividualityData" type="com.yxm.po.SysIndividuality">
+        <!--portrait,portraitFrame  epitaph  chatBubble  background  mood-->
+        <id property="id" jdbcType="INTEGER" column="id"/>
+        <result property="portrait" jdbcType="VARCHAR" column="portrait"/>
+        <result property="portraitFrame" jdbcType="VARCHAR" column="portraitFrame"/>
+        <result property="epitaph" jdbcType="VARCHAR" column="epitaph"/>
+        <result property="chatBubble" jdbcType="VARCHAR" column="chatBubble"/>
+        <result property="background" jdbcType="VARCHAR" column="background"/>
+        <result property="mood" jdbcType="TINYINT" column="mood"/>
+    </resultMap>
+    
+    <select id="selectUserName" resultMap="userData">
+        SELECT sys_user.* FROM sys_user WHERE sys_user.userName = #{userName}
+    </select>
+
+    <select id="selectUserPortrait" resultMap="IndividualityData">
+        SELECT sys_individuality.* FROM sys_individuality INNER JOIN sys_user ON sys_user.id = sys_individuality.userId WHERE sys_user.userName = #{userName}
+    </select>
+
+    <insert id="insertUser" parameterType="com.yxm.po.SysUserVo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName!=null">userName,</if>
+            <if test="userPassword!=null">userPassword,</if>
+            <if test="userIdNumber!=null">userIdNumber,</if>
+            <if test="userPhone!=null">userPhone,</if>
+            <if test="state!=null">state,</if>
+            <if test="salt!=null">salt,</if>
+            <if test="gender!=null">gender,</if>
+            <if test="loginCount!=null">loginCount,</if>
+            <if test="userCreate==null">userCreate,</if>
+            <if test="nickName!=null">nickName,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName!=null">#{userName},</if>
+            <if test="userPassword!=null">#{userPassword},</if>
+            <if test="userIdNumber!=null">#{userIdNumber},</if>
+            <if test="userPhone!=null">#{userPhone},</if>
+            <if test="state!=null">#{state},</if>
+            <if test="salt!=null">#{salt},</if>
+            <if test="gender!=null">#{gender},</if>
+            <if test="loginCount!=null">#{loginCount},</if>
+            <if test="userCreate==null">NOW(),</if>
+            <if test="nickName!=null">#{nickName},</if>
+        </trim>
+    </insert>
+    <insert id="insertIndividuality" parameterType="com.yxm.po.SysIndividuality">
+        INSERT INTO sys_individuality
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">userId,</if>
+            <if test="background!=null">background,</if>
+            <if test="portrait!=null">portrait,</if>
+            <if test="portraitFrame!=null">portraitFrame,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId!=null">#{userId},</if>
+            <if test="background!=null">#{background},</if>
+            <if test="portrait!=null">#{portrait},</if>
+            <if test="portraitFrame!=null">#{portraitFrame},</if>
+        </trim>
+    </insert>
+
+    <update id="updateUserState" parameterType="java.lang.Integer">
+        UPDATE sys_user SET loginCount=#{count} WHERE sys_user.id = #{userId}
+    </update>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.HomeDao">
+    <resultMap id="groupMemberDataB" type="com.yxm.po.SysGroupMember">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result property="userId" jdbcType="INTEGER" column="userId"/>
+        <result property="userName" jdbcType="VARCHAR" column="userName"/>
+        <result property="groupId" jdbcType="INTEGER" column="groupId"/>
+    </resultMap>
+    <select id="selectGroupMemberByGroupId" resultMap="groupMemberDataB">
+        SELECT sys_groupmember.* FROM sys_groupmember WHERE groupId = #{groupId}
+    </select>
+</mapper>
