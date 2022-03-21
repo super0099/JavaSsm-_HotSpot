@@ -1,0 +1,1137 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/*改变input标签的提示文字颜色*/
+input::-webkit-input-placeholder { /* WebKit browsers */
+    color: #FFFFFF !important;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.clearfix {
+    zoom: 1;
+}
+body{
+    width: 100%;
+}
+.hotSpotHome_content{
+    width:70%;
+    margin-left: 15%;
+    height: 100%;
+}
+.content_felt{
+    width: 30%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    float: left;
+    position: relative;
+}
+/*顶部*/
+.content_felt_material{
+    width: 100%;
+    height: 10%;
+    background: #4E5465;
+    position: relative;
+    
+}
+/*头像框和头像*/
+.content_felt_material_head{
+    margin-top: 3%;
+    margin-left: 4%;
+    width: 20%;
+    height: 80%;
+    position: absolute;
+}
+.content_felt_material_head img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+}
+.content_felt_material_head_portrait{
+    position: absolute;
+    top: 8%;
+    left: 8%;
+    width: 84%;
+    height: 84%;
+    z-index: 1;
+}
+.content_felt_material_head_portrait img{
+    border-radius: 50%;
+}
+/*昵称*/
+.content_felt_material_nickname{
+    position: absolute;
+    max-width: 40%;
+    max-height: 30%;
+    top: 32%;
+    left: 27%;
+    font-size: 1em;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+/*功能*/
+.content_felt_material_function{
+    width: 30%;
+    height: 80%;
+    position: absolute;
+    text-align: center;
+    line-height: 50%;
+    left: 65%;
+    top:10%;
+}
+.content_felt_material_function_add{
+    margin-top: 15%;
+    display: inline-block;
+    width: 35%;
+    height: 50%;
+    background: url("../img/添加.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.content_felt_material_function_add:hover{
+    background: url("../img/添加s.png") no-repeat;
+    background-size: 100% 100%;
+}
+.content_felt_material_functions{
+    display: inline-block;
+    width: 35%;
+    height: 50%;
+    background: url("../img/更多功能.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.content_felt_material_functions:hover{
+    background: url("../img/更多功能s.png") no-repeat;
+    background-size: 100% 100%;
+}
+/*好友列表区*/
+.content_felt_linkman{
+    width: 100%;
+    height: 84%;
+    background: rgba(0,0,0,0.5);
+}
+.content_felt_linkman_find{
+    width: 100%;
+    height: 7%;
+    background: #2E2D3C;
+    display: flex;
+}
+.content_felt_linkman_find input{
+    margin-top: 1%;
+    margin-left: 5%;
+    width: 72%;
+    height: 80%;
+    outline: none;
+    background: #2E2D3C;
+    color: #FFFFFF;
+    border:none;
+}
+.content_felt_linkman_find img{
+    cursor: pointer;
+    margin-left: 7%;
+    margin-top: 2%;
+    width: 10%;
+    height: 60%;
+}
+/*好友列表*/
+.content_felt_linkman_friend{
+    width: 100%;
+    height: 100%;
+
+}
+.content_felt_linkman_friend_chat{
+    width: 100%;
+    height: 95%;
+    overflow-y: auto;
+}
+.contact_data{
+    width: 100%;
+    height: 12%;
+    background: rgba(0,0,0,0.4);
+    /*border-bottom:1px solid #C9C5C5;*/
+}
+.contact_group_data{
+    width: 100%;
+    height: 12%;
+    background: rgba(0,0,0,0.4);
+    /*border-bottom:1px solid #C9C5C5;*/
+}
+.contact_data:hover{
+    background: #8D8D8D;
+}
+.contact_group_data:hover{
+    background: #8D8D8D;
+}
+.contact_data_portrait{
+    width: 25%;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+/*----------------------群聊的信息显示----------------------*/
+.contact_data_content_portrait{
+    width: 18%;
+    height: 75%;
+    float: left;
+    background: #999999;
+    border-radius: 20%;
+    margin-top: 3%;
+    margin-left: 3%;
+    margin-right: 4%;
+    text-align: center;
+}
+.contact_data_content_portrait img{
+    width: 37%;
+    height: 39%;
+    margin: 6%;
+    border-radius: 50%;
+}
+.contact_data_portrait img{
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 5%;
+    width: 85%;
+    height: 92%;
+    z-index: 2;
+    border-radius: 50%;
+}
+.contact_data_name{
+    float: left;
+    margin-left: 2%;
+    width:50%;
+    height: 50%;
+    color: #FFFFFF;
+}
+/*设置超出文本后显示...*/
+.contact_data_name p{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.chatText img{
+    display: inline-block;
+    vertical-align:middle;
+    max-width: 20%;
+    max-height: 90%;
+}
+.contact_data_name p:first-child{
+    padding-top: 5%;
+    font-size: 18px;
+}
+.chatText{
+    margin-top: 4%;
+    color: #999999;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height: 67%;
+}
+.contact_data_time{
+    text-align: right;
+    width: 21%;
+    float: left;
+    margin-left: 1%;
+    color: #FFFFFF;
+}
+.contact_data_time p{
+    margin-top: 10%;
+    font-size: 12px;
+    color: #C9C5C5;
+}
+.contact_data_time input{
+    margin-top: 17%;
+    margin-right: 3%;
+    text-align: center;
+    max-width: 35%;
+    outline: none;
+    border: none;
+    background: red;
+    border-radius: 8%;
+    color: #FFFFFF;
+}
+
+/*通讯录*/
+.content_felt_linkman_friend_Contact{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+}
+.letter_navigation{
+    width: 1%;
+    height: 93%;
+    position: fixed;
+    left: 34.5%;
+    top: 16%;
+    text-align: center;
+    z-index: 2;
+}
+.letter_navigation a{
+    color: #FFFFFF;
+    width: 100%;
+    cursor: pointer;
+    text-decoration:none;
+    margin-top: 1px;
+    display: inline-block;
+}
+
+.linkman_list{
+    width: 100%;
+    height: 100%;
+}
+.HintFriend{
+    margin-top: 5%;
+    width: 100%;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+}
+.HintFriend input{
+    width: 5%;
+    background: red;
+    outline: none;
+    border:none;
+    border-radius: 2px;
+    color: #FFFFFF;
+    text-align: center;
+    height: 60%;
+    position: absolute;
+    top: 27%;
+    right: 35%;
+}
+.area{
+    width: 100%;
+}
+.area p{
+    padding:1% 0 0 3%;
+    color: #8D8D8D;
+}
+.linkman_list_list{
+    width: 100%;
+    padding: 1%;
+}
+.linkman{
+    width: 98%;
+    height: 9%;
+}
+.linkman img{
+    margin-top: 2%;
+    margin-left: 2%;
+    width: 16%;
+    height: 80%;
+    float: left;
+    border-radius: 20%;
+}
+.linkman p{
+    margin-left: 2%;
+    margin-top: 4%;
+    float: left;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+/*底部切换*/
+.content_felt_cut{
+    background: rgba(0,0,0,0);
+    width: 100%;
+    height: 6%;
+    font-size: 14px;
+    position: absolute;
+    z-index: 5;
+}
+.content_felt_cut img{
+    margin-top: 5%;
+    margin-left: 25%;
+    width: 18%;
+    height: 55%;
+}
+.content_felt_cut span{
+    margin-top: 7%;
+    margin-left: 3%;
+    color: #FFFFFF;
+}
+.content_felt_cut_chat{
+    cursor: pointer;
+    border-radius: 50% 0 0 0;
+    background: #333333;
+    float: left;
+    width: 50%;
+    height: 100%;
+    display: flex;
+}
+.content_felt_cut_chat span{
+    color: #01AAED;
+}
+.content_felt_cut_linkman{
+    cursor: pointer;
+    border-radius: 0 50% 0 0;
+    background: #333333;
+    float: left;
+    width: 50%;
+    text-align: center;
+    display: flex;
+    height: 100%;
+}
+/*----------------------------------添加好友和创建群聊-----------------------------------*/
+.addGroupPage{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+}
+.addGroupPageContent{
+    width: 25%;
+    height: 70%;
+    background: #eeeeee;
+    margin-top: 7%;
+    margin-left: 38%;
+    text-align: center;
+}
+.addGroupPageHead{
+    width: 100%;
+    height: 8%;
+    padding-top: 10%;
+    position: relative;
+
+}
+.addGroupPageHead p{
+    color: #4E5465;
+}
+.addGroupPageHead p span:first-child{
+    display: inline-block;
+    float: left;
+    margin-left: 10%;
+    cursor: pointer;
+    border-bottom: 2px solid #01AAED;
+}
+.addGroupPageHead p span:last-child{
+    display: inline-block;
+    float: right;
+    margin-right: 10%;
+    cursor: pointer;
+}
+
+.addGroupPageHead i{
+    position: absolute;
+    width: 5%;
+    height: 25%;
+    display: inline-block;
+    background: url("../img/关闭.png");
+    background-size: 100% 100%;
+    top: 10%;
+    right: 1%;
+    cursor:pointer;
+}
+.addGroupPageFriend{
+    width: 90%;
+    margin-left: 5%;
+    height: 70%;
+    position: relative;
+    overflow: hidden;
+}
+.addGroupPageBigBox{
+    width: 200%;
+    position: absolute;
+    height: 100%;
+    top:0;
+    left: 0;
+}
+.queryFriends{
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+.newGroupChat{
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+.inquireFriend{
+    margin-top: 5%;
+    margin-left: 1%;
+    display: flex;
+    width: 98%;
+    height: 9%;
+    background: #5FB878;
+    border-radius: 5px
+}
+.inquireFriend input{
+    width: 80%;
+    margin-left: 5%;
+    background: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+}
+.inquireFriend img{
+    margin-left: 5%;
+    cursor: pointer;
+}
+.friendDataBox{
+    margin-top: 10%;
+    width: 90%;
+    height: 80%;
+    margin-left: 5%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.friendData{
+    width: 100%;
+    height: 25%;
+    margin-bottom: 1%;
+    border-radius: 5px;
+}
+.friend_head{
+    margin-top: 1.5%;
+    margin-left: 2%;
+    width: 22%;
+    height: 90%;
+    position: relative;
+    float: left;
+}
+.friend_head img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+}
+.friend_portrait{
+    position: absolute;
+    top: 8%;
+    left: 8%;
+    width: 84%;
+    height: 84%;
+    z-index: 1;
+}
+.friend_portrait img{
+    border-radius: 50%;
+}
+.friend_name{
+    margin-left: 3%;
+    text-align: left;
+    width: 50%;
+    height: 70%;
+    float: left;
+    padding-top: 3%;
+}
+.friend_name p:first-child{
+    font-size: 18px;
+    color: #8D8D8D;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.friend_name p:last-child{
+    margin-top: 2%;
+    font-size: 14px;
+    color: #4E5465;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.friend_add{
+    width: 20%;
+    float: left;
+    padding-top: 8%;
+}
+.friend_add button{
+    width: 100%;
+    height: 30%;
+    outline: none;
+    border: none;
+    background: #01AAED;
+    color: #FFFFFF;
+    border-radius: 3px;
+    cursor: pointer;
+}
+/*------------------------查看新朋友的验证信息----------------------*/
+.newFriendHint{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+}
+.newFriendHintContent{
+    width: 25%;
+    height: 50%;
+    background: #FFFFFF;
+    margin-top: 10%;
+    margin-left: 38%;
+}
+.newFriendHintHead{
+    width: 100%;
+    padding-top: 1%;
+    text-align: center;
+    color: #4E5465;
+    position: relative;
+}
+.newFriendHintHead i {
+    position: absolute;
+    width: 5%;
+    height: 70%;
+    display: inline-block;
+    background: url(../img/关闭.png);
+    background-size: 100% 100%;
+    top: 10%;
+    right: 1%;
+    cursor: pointer;
+}
+.GroupChatName{
+    margin-top: 5%;
+    margin-left: 1%;
+    width: 98%;
+    height: 9%;
+    background: #01AAED;
+    border-radius: 5px;
+}
+.GroupChatName label{
+    color: #4E5465;
+}
+.GroupChatName input{
+    width: 80%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: rgba(0,0,0,0);
+}
+.newGroupChatBox{
+    margin-top: 2%;
+    width: 96%;
+    height: 80%;
+    margin-left: 2%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.friend_data{
+    width: 99%;
+    height: 15%;
+    margin-bottom: 1%;
+    border-radius: 5px;
+    background: #FFFFFF;
+}
+.friend_data_portrait{
+    width: 12%;
+    height: 80%;
+    float: left;
+}
+.friend_data_portrait img{
+    width: 100%;
+    height: 100%;
+    margin-top: 10%;
+    margin-left: 15%;
+    border-radius: 50%;
+}
+.friend_data_name{
+    width: 60%;
+    height: 60%;
+    margin-left: 5%;
+    float: left;
+}
+.friend_data_name p{
+    text-align: left;
+    color: #999999;
+    margin-top: 5%;
+}
+.friend_data_button{
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+.friend_data_button input{
+    margin-top: 25%;
+    margin-left: 50%;
+}
+.establishGroup{
+    width: 90%;
+    height: 5%;
+    margin-left: 5%;
+}
+.establishGroup button{
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border:none;
+    border-radius: 10px;
+    background: #01AAED;
+}
+.content_right{
+    width: 70%;
+    height: 100%;
+    float: left;
+}
+/*.content_right iframe{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+.chat_content{
+    width: 100%;
+    height: 100%;
+    background: #eeeeee;
+    position: relative;
+}
+.chat_content_head{
+    width: 100%;
+    height: 10%;
+    background: #FFFFFF;
+}
+.chat_content_head p{
+    margin-top: 2.5%;
+    color: #999999;
+    font-size: 20px;
+    margin-left: 2%;
+    float: left;
+}
+.chat_content_head img{
+    margin-top: 2%;
+    width: 5%;
+    margin-right: 2%;
+    height: 52%;
+    float: right;
+    cursor: pointer;
+}
+.chat_content_body{
+    width: 100%;
+    height: 65%;
+    overflow-y: auto;
+}
+.chat_content_foot{
+    width: 100%;
+    height: 24.5%;
+    background: #FFFFFF;
+    border-top: 2px solid #eeeeee;
+    position: relative;
+
+}
+.operation{
+    width: 100%;
+    height: 20%;
+}
+.operation img{
+    float: left;
+    width: 4%;
+    height: 80%;
+    margin: 3px;
+    cursor: pointer;
+}
+.dataTextSend{
+    width: 99%;
+    outline: none;
+    height: 80%;
+    font-size: 14px;
+    color: #999999;
+    overflow-y: auto;
+    margin-left: 1%;
+}
+.dataTextSend img{
+    display: inline-block;
+    vertical-align:middle;
+    max-width: 30%;
+    max-height: 90%;
+}
+.sendData{
+    width: 10%;
+    height: 10%;
+    background: #01AAED;
+    outline: none;
+    border:none;
+    display: inline-block;
+    position: absolute;
+    top: 85%;
+    right: 1%;
+    border-radius: 2px;
+}
+.expression{
+    width: 40%;
+    height: 20%;
+    background: #FFFFFF;
+    position: absolute;
+    top: 54%;
+    left: 1%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px #333333;
+    z-index: 5;
+}
+.expression img{
+    width: 9%;
+    height: 14%;
+    cursor: pointer;
+}
+.imgAndVidShow{
+    max-width: 20%;
+    max-height: 15%;
+    top: 54%;
+    left: 1%;
+    position: absolute;
+    z-index: 5;
+}
+.imgAndVidShow p{
+    width: 100%;
+    color: #999999;
+    margin-top: -20px;
+    cursor: pointer;
+}
+.imgAndVidShow i{
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+    color: #01AAED;
+
+}
+.imgAndVidShow img{
+    margin: 1%;
+    max-width: 98%;
+    max-height: 98%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px #333333;
+}
+/*----------------------------聊天样式---------------------------*/
+.messageFriend{
+    width: 100%;
+    min-height: 11%;
+    position: relative;
+}
+.messageMy{
+    width: 100%;
+    min-height: 11%;
+    position: relative;
+}
+.friendDataPortrait{
+    width: 8%;
+    height: 11%;
+    margin: 2px;
+    float: left;
+    position: relative;
+}
+.myDataPortrait{
+    width: 8%;
+    height: 11%;
+    margin: 2px;
+    float: right;
+    position: relative;
+}
+.myDataPortrait img{
+    position: absolute;
+    margin-right: 5%;
+    margin-top: 5%;
+    width: 85%;
+    height: 92%;
+    z-index: 2;
+    border-radius: 50%;
+}
+.friendDataPortrait img{
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 5%;
+    width: 85%;
+    height: 92%;
+    z-index: 2;
+    border-radius: 50%;
+}
+.my_content_felt_material_head_portrait{
+    position: absolute;
+    top: 8%;
+    right: 8%;
+    width: 84%;
+    height: 84%;
+    z-index: 1;
+}
+.content_felt_material_head_portraits{
+    position: absolute;
+    top: 8%;
+    left: 8%;
+    width: 84%;
+    height: 84%;
+    z-index: 1;
+}
+.content_felt_material_head_portraits img{
+    margin-left: -4%;
+}
+.content_felt_material_head_portraits{
+    margin-left: 7%;
+}
+.messageFriend p{
+    position: absolute;
+    top: 6%;
+    left: 9%;
+    font-size: 12px;
+    color: #eb7350;
+}
+.messageMy p{
+    position: absolute;
+    top: 5px;
+    right: 9%;
+    font-size: 12px;
+    color: #eb7350;
+}
+.sendDataMessage{
+    min-width: 0%;
+    max-width: 48%;
+    padding: 1%;
+    float: left;
+    margin-top: 3%;
+    background: #FFFFFF;
+    color: #4E5465;
+    border-radius: 5px;
+}
+.sendDataMessage img{
+    max-height:120px;
+    vertical-align: middle;
+}
+.my_sendDataMessage{
+    min-width: 0%;
+    max-width: 48%;
+    padding: 1%;
+    float: right;
+    margin-top: 3%;
+    background: #FFFFFF;
+    overflow: hidden;
+    color: #4E5465;
+    border-radius: 5px;
+}
+.my_sendDataMessage img{
+    max-height:120px;
+    vertical-align: middle;
+}
+.historyRecord{
+    margin-top: 1%;
+    width: 100%;
+    text-align: center;
+    color: #4E5465;
+    font-size: 12px;
+    font-style: italic;
+    cursor: pointer;
+}
+.rightFriendData{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 7;
+}
+.rightFriendDataBody{
+    width: 30%;
+    height: 50%;
+    background: #FFFFFF;
+    margin-top: 10%;
+    margin-left: 35%;
+}
+.rightFriendDataBody_head{
+    position: relative;
+    width: 100%;
+    height: 30%;
+
+}
+.rightFriendDataBody_head_nickname{
+    position: absolute;
+    max-width: 40%;
+    max-height: 30%;
+    top: 40%;
+    left: 27%;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 24px;
+}
+.rightFriendDataBody_head_close{
+    display: inline-block;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    width: 6%;
+    height: 25%;
+    background: url("../img/关闭.png") no-repeat;
+    background-size: 100% 100%;
+}
+.rightFriendDataBody_body{
+    width: 100%;
+    height: 60%;
+}
+.rightFriendDataBody_body hr{
+    width: 98%;
+    margin-left: 1%;
+}
+.rightFriendDataBody_body_textarea{
+    width: 96%;
+    height: 40%;
+    margin: 2%;
+    border: none;
+    outline: none;
+    resize: none;
+    border-radius: 5px;
+}
+.rightFriendDataBody_body_data{
+    width: 96%;
+    margin: 2%;
+    font-size: 18px;
+    color: #4E5465;
+}
+.rightFriendDataBody_body_data label{
+    text-align: center;
+}
+.rightFriendDataBody_body_data input{
+    padding-left: 1%;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    color: #4E5465;
+}
+.rightFriendDataBody_button{
+    width: 100%;
+    height: 10%;
+    text-align: center;
+}
+.rightFriendDataBody_button button{
+    width: 33.33%;
+    float: left;
+    height: 100%;
+    border-radius: 0px;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    cursor: pointer;
+}
+.rightFriendDataBody_button button i{
+    display: inline-block;
+    width: 15%;
+    height: 50%;
+
+}
+#send{
+    background: url("../img/聊天s.png") no-repeat;
+    background-size: 100% 100%;
+}
+#share{
+    background: url("../img/分享.png") no-repeat;
+    background-size: 100% 100%;
+}
+#delete{
+    background: url("../img/删除.png") no-repeat;
+    background-size: 100% 100%;
+}
+#add{
+    background: url("../img/添加好友.png") no-repeat;
+    background-size: 100% 100%;
+}
+/*弹出分享名片的弹出层*/
+.friendList{
+    width: 30%;
+    height: 80%;
+    background: #999999;
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 35%;
+    border-radius: 5px;
+}
+.friendList_body{
+    width: 96%;
+    height: 86%;
+    margin: 2%;
+    overflow-y: auto;
+}
+.friendList_head{
+    width: 100%;
+    height: 10%;
+    background: #01AAED;
+    border-radius: 5px 5px 0 0;
+}
+.friendList p i{
+    display: inline-block;
+    background: url("../img/返回.png");
+    background-size: 100% 100%;
+    float: left;
+    margin-top: 3%;
+    margin-left: 2%;
+    width: 6%;
+    height: 50%;
+}
+.shareFriend_data{
+    width: 99%;
+    height: 15%;
+    margin-bottom: 1%;
+    border-radius: 5px;
+    background: #FFFFFF;
+    cursor: pointer;
+}
+.shareFriend_data:hover{
+    background: rgba(0,0,0,0.2);
+}
+.shareFriend_data_portrait{
+    width: 15%;
+    height: 80%;
+    float: left;
+}
+.shareFriend_data_portrait img{
+    width: 100%;
+    height: 100%;
+    margin-top: 10%;
+    margin-left: 15%;
+    border-radius: 50%;
+}
+.businessCard{
+    width: 200px;
+    height: 10%;
+}
+.businessCard img{
+    width: 24%;
+    height: 90%;
+    float: left;
+    margin-right: 5%;
+}
+.businessCard h5{
+    font-weight: normal;
+    float: left;
+}
+.businessCard h6{
+    font-weight: normal;
+}
+.sendDataMessage hr{
+    border-top:1px solid #999999;
+    border-bottom: none;
+}
+.my_sendDataMessage hr{
+    border-top:1px solid #999999;
+    border-bottom: none;
+}
+
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width:2px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow:inset006pxrgba(0,0,0,0.3);*/
+    border-radius:10px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius:10px;
+    background:rgba(0,0,0,0.1);
+    /*-webkit-box-shadow:inset006pxrgba(0,0,0,0.5);*/
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: url("../img/20211011_084647143_316351642199912.png");
+}
